@@ -1,0 +1,20 @@
+﻿{% extends 'base.html' %}
+{% block content %}
+<h2>Edit Page for Board ID: {{ page.board_id }}</h2>
+
+<form method="POST">
+    <label>Order: <input name="order" type="number" value="{{ page.order }}" /></label><br>
+    <label>Page Content:</label><br>
+    <textarea id="pageContent" name="page_content">{{ page.content }}</textarea><br>
+    <button type="submit">Save Changes</button>
+</form>
+
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea#pageContent',
+        menubar: false,
+        height: 300
+    });
+</script>
+{% endblock %}

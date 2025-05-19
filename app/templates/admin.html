@@ -1,0 +1,13 @@
+﻿{% extends 'adminbase.html' %}
+{% block content %}
+    <h2>Admin</h2>
+    <form method="POST">
+        <input name="board_name" placeholder="New Board Name">
+        <button type="submit">Create</button>
+    </form>
+    <ul>
+        {% for board in boards %}
+        <li><a href="{{ url_for('main.show_board', board_id=board.id) }}">{{ board.name }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

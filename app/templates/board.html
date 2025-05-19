@@ -1,0 +1,41 @@
+﻿{% extends 'base.html' %}
+{% block content %}
+<h2>{{ board.name }}</h2>
+<div id="slideContainer">
+    {% for page in pages %}
+        <div class="slide" style="display: none;">
+            {{ page.content | safe }}
+        </div>
+    {% endfor %}
+</div>
+
+<script>
+    const slides = document.querySelectorAll('.slide');
+    let index = 0;
+
+    function showSlide(i) {
+        slides.forEach((s, idx) => {
+            s.style.opacity = 0;
+            s.style.display = 'none';
+        });
+
+        slides[i].style.display = 'block';
+        setTimeout(() => {
+            slides[i].style.opacity = 1;
+        }, 50);
+    }
+
+    showSlide(index);
+    setInterval(() => {
+        index = (index + 1) % slides.length;
+        showSlide(index);
+    }, 5000);
+</script>
+
+<style>
+    .slide {
+        transition: opacity 1s ease-in-out;
+        opacity: 0;
+    }
+</style>
+{% endblock %}

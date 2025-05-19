@@ -1,0 +1,23 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>OilProjector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    <script>
+        let tinymce;
+        tinymce.init({
+        selector: 'textarea#pageContent',
+        menubar: false,
+        height: 300
+      });
+    </script>
+</head>
+<body>
+    <header><h1>OilProjector</h1></header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer><p>© Your School / Arthur 2025</p></footer>
+</body>
+</html>
