@@ -2,11 +2,18 @@
 {% block content %}
 <h2>{{ board.name }}</h2>
 <div id="slideContainer">
-    {% for page in pages %}
-        <div class="slide" style="display: none;">
-            {{ page.content | safe }}
-        </div>
-    {% endfor %}
+{% for page in pages %}
+    <article class="slide" style="display: none;">
+        {% for section in page.sections %}
+            <section class="mb-4">
+                {% if section.title %}
+                    <h4>{{ section.title }}</h4>
+                {% endif %}
+                <div>{{ section.content | safe }}</div>
+            </section>
+        {% endfor %}
+    </article>
+{% endfor %}
 </div>
 
 <script>
@@ -14,7 +21,7 @@
     let index = 0;
 
     function showSlide(i) {
-        slides.forEach((s, idx) => {
+        slides.forEach((s) => {
             s.style.opacity = 0;
             s.style.display = 'none';
         });
