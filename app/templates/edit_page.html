@@ -5,24 +5,24 @@
 
     <form method="POST">
         <div class="mb-3">
-            <label for="pageContent" class="form-label">Page Content</label>
-            <textarea id="pageContent" name="page_content" class="form-control">{{ page.content }}</textarea>
-        </div>
-        <div class="mb-3">
             <label for="order" class="form-label">Order</label>
             <input type="number" name="order" id="order" value="{{ page.order }}" class="form-control" />
         </div>
-        <button type="submit" class="btn btn-primary">💾 Save Changes</button>
-        <a href="{{ url_for('main.admin') }}" class="btn btn-secondary">🔙 Back</a>
+
+        <h4 class="mt-4">🧩 Select Sections for This Page</h4>
+        {% for section in available_sections %}
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" id="section{{ section.id }}" name="section_ids"
+                   value="{{ section.id }}"
+                   {% if section.id in current_section_ids %}checked{% endif %}>
+            <label class="form-check-label" for="section{{ section.id }}">
+                {{ section.title or "Untitled Section" }}
+            </label>
+        </div>
+        {% endfor %}
+
+        <button type="submit" class="btn btn-primary mt-3">💾 Save Changes</button>
+        <a href="{{ url_for('main.admin') }}" class="btn btn-secondary mt-3">🔙 Back</a>
     </form>
 </div>
-
-<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-<script>
-    tinymce.init({
-        selector: 'textarea#pageContent',
-        menubar: false,
-        height: 300
-    });
-</script>
 {% endblock %}

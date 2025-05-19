@@ -1,6 +1,13 @@
 ﻿{% extends 'adminbase.html' %}
 {% block content %}
 <div class="container mt-4">
+    <h2 class="mb-4">📋 Section Management</h2>
+
+    <div class="mb-4">
+        <a href="{{ url_for('main.list_sections') }}" class="btn btn-outline-secondary">
+            🧩 Manage Sections
+        </a>
+    </div>
     <h2 class="mb-4">📋 Board Management</h2>
 
     <form method="POST" class="mb-4">
@@ -21,5 +28,12 @@
         <li class="list-group-item">No boards yet. Create one above!</li>
         {% endfor %}
     </ul>
+    <form method="POST" action="{{ url_for('main.reset_db') }}" onsubmit="return confirm('⚠️ This will ERASE ALL DATA and rebuild the database from scratch. Are you sure you want to proceed?');">
+        <div class="alert alert-warning mt-5" role="alert">
+            <strong>Warning:</strong> This will permanently delete all data and reset the system.
+        </div>
+    </form>
+
+
 </div>
 {% endblock %}
