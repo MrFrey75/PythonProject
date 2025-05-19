@@ -1,13 +1,21 @@
-﻿{% extends 'base.html' %}
+﻿{% extends 'adminbase.html' %}
 {% block content %}
-<h2>Edit Page for Board ID: {{ page.board_id }}</h2>
+<div class="container mt-4">
+    <h2 class="mb-4">✏️ Edit Page</h2>
 
-<form method="POST">
-    <label>Order: <input name="order" type="number" value="{{ page.order }}" /></label><br>
-    <label>Page Content:</label><br>
-    <textarea id="pageContent" name="page_content">{{ page.content }}</textarea><br>
-    <button type="submit">Save Changes</button>
-</form>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="pageContent" class="form-label">Page Content</label>
+            <textarea id="pageContent" name="page_content" class="form-control">{{ page.content }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="order" class="form-label">Order</label>
+            <input type="number" name="order" id="order" value="{{ page.order }}" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary">💾 Save Changes</button>
+        <a href="{{ url_for('main.admin') }}" class="btn btn-secondary">🔙 Back</a>
+    </form>
+</div>
 
 <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
