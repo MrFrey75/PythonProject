@@ -1,0 +1,53 @@
+﻿{% extends 'adminbase.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">🛠️ Editing Board: {{ board.name }}</h2>
+
+    <form method="POST" class="mb-4">
+        <div class="mb-3">
+            <label for="orderInput" class="form-label">Order</label>
+            <input name="order" id="orderInput" type="number" value="0" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label for="pageContent" class="form-label">Page Content</label>
+            <textarea id="pageContent" name="page_content" class="form-control"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-success">➕ Add Page</button>
+    </form>
+
+    <hr>
+
+    <h3 class="mb-3">📄 Existing Pages</h3>
+    <ol class="list-group list-group-numbered">
+        {% for page in board.pages|sort(attribute='order') %}
+        <li class="list-group-item">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <strong>Order {{ page.order }}</strong>
+                    <div class="border p-2 mt-2 bg-light rounded">
+                        {{ page.content|safe }}
+                    </div>
+                </div>
+                <div class="text-end">
+                    <a href="{{ url_for('main.edit_page', page_id=page.id) }}" class="btn btn-sm btn-outline-primary mb-2">✏️ Edit</a>
+                    <form action="{{ url_for('main.delete_page', page_id=page.id) }}" method="POST" onsubmit="return confirm('Delete this page?');">
+                        <button type="submit" class="btn btn-sm btn-outline-danger">🗑️ Delete</button>
+                    </form>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ol>
+</div>
+
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea#pageContent',
+        menubar: false,
+        height: 300
+    });
+</script>
+{% endblock %}

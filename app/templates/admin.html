@@ -1,0 +1,39 @@
+﻿{% extends 'adminbase.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">📋 Section Management</h2>
+
+    <div class="mb-4">
+        <a href="{{ url_for('main.list_sections') }}" class="btn btn-outline-secondary">
+            🧩 Manage Sections
+        </a>
+    </div>
+    <h2 class="mb-4">📋 Board Management</h2>
+
+    <form method="POST" class="mb-4">
+        <div class="input-group">
+            <input name="board_name" class="form-control" placeholder="Enter a new board name" required>
+            <button class="btn btn-primary" type="submit">➕ Create Board</button>
+        </div>
+    </form>
+
+    <h4 class="mb-3">Your Boards</h4>
+    <ul class="list-group">
+        {% for board in boards %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <a href="{{ url_for('main.show_board', board_id=board.id) }}">{{ board.name }}</a>
+            <a href="{{ url_for('main.edit_board', board_id=board.id) }}" class="btn btn-sm btn-outline-secondary">✏️ Edit</a>
+        </li>
+        {% else %}
+        <li class="list-group-item">No boards yet. Create one above!</li>
+        {% endfor %}
+    </ul>
+    <form method="POST" action="{{ url_for('main.reset_db') }}" onsubmit="return confirm('⚠️ This will ERASE ALL DATA and rebuild the database from scratch. Are you sure you want to proceed?');">
+        <div class="alert alert-warning mt-5" role="alert">
+            <strong>Warning:</strong> This will permanently delete all data and reset the system.
+        </div>
+    </form>
+
+
+</div>
+{% endblock %}
